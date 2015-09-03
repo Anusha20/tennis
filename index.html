@@ -1,6 +1,4 @@
 <html>
-Anusha is here!
-<br>
 <canvas id ="gameCanvas" width="800" height="600"> </canvas>
 <script>
 var canvas;
@@ -41,6 +39,16 @@ window.onload=function(){
 	);
 	
 	canvas.addEventListener('mousedown',handlemouseclick);
+	
+	canvas.addEventListener('touchmove',
+	function(evt){
+		var touchPos=calculateTouchPos(evt);
+		paddle1y=touchPos.y-(PADDLE_HEIGHT/2);
+	}
+	);
+	
+	canvas.addEventListener('touchmove',handlemouseclick);
+	
 }
 
 function handlemouseclick(evt){
@@ -65,6 +73,21 @@ x:mouseX,
 y:mouseY
 };
 }
+
+function calculateTouchPos(evt){
+var touchobj=evt.changedTouches[0];
+var rect=canvas.getBoundingClientRect();
+var root=document.documentElement;
+
+var touchX=touchobj.clientX- rect.left-root.scrollLeft;
+var touchY=touchobj.clientY- rect.top-root.scrollTop;
+
+return {
+x:touchX,
+y:touchY
+};
+}
+
 
  function callboth(){
  
